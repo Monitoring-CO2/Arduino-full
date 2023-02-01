@@ -33,6 +33,23 @@ void EINK_Screen::drawMainFrame() {
 
 	uint16_t bar_color = EPD_RED;
 	uint16_t text_color = EPD_WHITE;
+	uint16_t text_bg_color = EPD_WHITE;
+
+	if(co2 <= 1000){
+		bar_color = EPD_BLACK;
+		text_color = EPD_BLACK;
+		text_bg_color = EPD_WHITE;
+	}
+	else if(co2 <= 1500){
+		bar_color = EPD_BLACK;
+		text_color = EPD_WHITE;
+		text_bg_color = EPD_BLACK;
+	}
+	else{
+		bar_color = EPD_RED;
+		text_color = EPD_WHITE;
+		text_bg_color = EPD_RED;
+	}
 
 	int upper_height = display->height() * 0.2;
 	height = display->height()*0.4;
@@ -54,14 +71,23 @@ void EINK_Screen::drawMainFrame() {
 
 	display->fillRect(width1, upper_height, width2*percent, height, bar_color);
 
-	display->fillRect(0, display->height()*2/3-10, display->width()+10, display->height()/3, bar_color);
+
+	display->fillRect(0, display->height()*2/3-10, display->width()+10, display->height()/3, text_bg_color);
 
 	display->setTextSize(5);
 	display->setCursor(10, display->height()*3/4-5);
 	display->setTextColor(text_color);
 	display->print(String(co2)+" ppm");
-	
-	display->drawBitmap(display->width()*0.7, display->height()*5/8+5, epd_bitmap_co2_high, 96, 96, EPD_WHITE);
+
+	if(co2 <= 1000) {
+		display->drawBitmap(display->width()*0.7, display->height()*5/8+5, epd_bitmap_co2_low, 96, 96, text_color);
+	}
+	else if(co2 <= 1500){
+		display->drawBitmap(display->width()*0.7, display->height()*5/8+5, epd_bitmap_co2_mid, 96, 96, text_color);
+	}
+	else{
+		display->drawBitmap(display->width()*0.7, display->height()*5/8+5, epd_bitmap_co2_high, 96, 96, text_color);
+	}
 
 	display->display();
 

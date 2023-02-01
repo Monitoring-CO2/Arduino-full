@@ -1,5 +1,11 @@
 #include "CONFIG_PRIVATE.h"
 
-#define SERIAL_DEBUG
+//#define SERIAL_DEBUG
+
+#ifndef SERIAL_DEBUG
 #define LOWPOWER_SLEEP(ms) LowPower.deepSleep(ms)
-//#define LOWPOWER_SLEEP(ms) delay(ms)
+#else
+#define LOWPOWER_SLEEP(ms) delay(ms)
+#endif
+
+#define SAMPLES_PER_UPLOAD 6

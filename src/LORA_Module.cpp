@@ -99,9 +99,13 @@ void LORA_Module::sendDataStore(LinkedList<CO2_data_t*> *dataList) {
 
 	payload[0] = dataListSize;
 	pinMode(PIN_A1, INPUT);
-	double batterie = analogRead(PIN_A1) * 2 * 3.3 / 1024;
-	int batterieConv = (batterie * 10);
-	batterieConv -= 25;
+	int batterieConv = analogRead(PIN_A1) * 2 * 3.3 * 100 / 1023 - 250;
+
+#ifdef SERIAL_DEBUG
+	Serial.print("BatteryConv : ");
+	Serial.println(batterieConv);
+#endif
+
 	payload[1] = batterieConv;
 
 	CO2_data_t *currentCO2data;

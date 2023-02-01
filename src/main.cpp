@@ -33,7 +33,9 @@ void setup() {
 }
 
 void loop() {
+#ifndef SERIAL_DEBUG
 	LowPower.deepSleep();
+#endif
 	update();
 }
 
@@ -48,7 +50,7 @@ void update(){
 #ifdef SERIAL_DEBUG
 		Serial.println(String(dataStore.getDataList()->size())+" data stored");
 #endif
-		if(dataStore.getDataList()->size() >= 6){
+		if(dataStore.getDataList()->size() >= SAMPLES_PER_UPLOAD){
 			loraModule.sendDataStore(dataStore.getDataList());
 		}
 	}
