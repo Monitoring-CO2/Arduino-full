@@ -27,13 +27,25 @@ void EINK_Screen::drawMainFrame() {
 	display->print(String(humidite) + " %");
 	display->drawBitmap(width1+14, 3, epd_bitmap_humidity, 32, 32, EPD_BLACK);
 
+	pinMode(PIN_A1, INPUT);
+	double batterieVoltage = (double)analogRead(PIN_A1) * 2 * 3.3 / 1023;
+	Serial.print("BatterieVoltage : ");
+	Serial.println(batterieVoltage);
+	int batterie = (batterieVoltage - 2.9) / 0.75 * 100;
+	if(batterie > 100){
+		batterie = 100;
+	}
+	else if(batterie < 0){
+		batterie = 0;
+	}
+
 	display->setCursor(width2 + 60, height/4);
 	display->print(String(batterie) + " %");
 	display->drawBitmap(width2+14, 3, epd_bitmap_battery, 32, 32, EPD_BLACK);
 
-	uint16_t bar_color = EPD_RED;
-	uint16_t text_color = EPD_WHITE;
-	uint16_t text_bg_color = EPD_WHITE;
+	uint16_t bar_color;
+	uint16_t text_color;
+	uint16_t text_bg_color;
 
 	if(co2 <= 1000){
 		bar_color = EPD_BLACK;

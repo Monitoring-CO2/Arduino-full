@@ -46,6 +46,7 @@ void update(){
 	if(co2Sensor.getMeasure()){
 		dataStore.addData(&rtcZero, co2Sensor.getTemperature(), (int)co2Sensor.getHumidity(), co2Sensor.getCO2(), 0);
 		einkScreen.setSensorValues(co2Sensor.getTemperature(), (int)co2Sensor.getHumidity(), co2Sensor.getCO2());
+
 		einkScreen.drawMainFrame();
 #ifdef SERIAL_DEBUG
 		Serial.println(String(dataStore.getDataList()->size())+" data stored");

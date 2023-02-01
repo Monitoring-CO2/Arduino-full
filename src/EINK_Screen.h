@@ -24,8 +24,6 @@ private:
 	void powerOff();
 	void powerOn();
 
-	int batterie = 99;
-
 	int minPPM = 400;
 	int maxPPM = 2100;
 
