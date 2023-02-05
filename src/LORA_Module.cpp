@@ -127,7 +127,8 @@ void LORA_Module::sendDataStore(LinkedList<CO2_data_t*> *dataList) {
 
 		int co2Conv = currentCO2data->co2 / 10;
 		payload[8*i+8] = ((currentCO2data->humidite & 0x3F) << 7) | (co2Conv >> 4);
-		payload[8*i+9] = (co2Conv << 4);
+		int mouvementConv = (int)round(currentCO2data->mouvement * 16);
+		payload[8*i+9] = (co2Conv << 4) | (mouvementConv & 0x0F);
 
 		delete currentCO2data;
 	}

@@ -1,6 +1,6 @@
 #include "DataStore.h"
 
-void DataStore::addData(RTCZero *rtcZero, float temperature, int humidite, int co2, int mouvement) {
+void DataStore::addData(RTCZero *rtcZero, float temperature, int humidite, int co2, double mouvement) {
 	auto *co2Data = new CO2_data_t;
 
 	Serial.println("current timestamp : "+String(rtcZero->getEpoch()));

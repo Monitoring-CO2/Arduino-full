@@ -6,12 +6,14 @@
 #include "TPL.h"
 #include "LORA_Module.h"
 #include "DataStore.h"
+#include "Motion.h"
 
 EINK_Screen einkScreen;
 CO2_Sensor co2Sensor;
 LORA_Module loraModule(&einkScreen);
 DataStore dataStore;
 RTCZero rtcZero;
+Motion motion;
 
 void update();
 
@@ -34,9 +36,15 @@ void setup() {
 
 void loop() {
 #ifndef SERIAL_DEBUG
-	LowPower.deepSleep();
+	LowPower.deepSleep(1000);
+#else
+	delay(1000);
 #endif
-	update();
+	motion.captureData();
+	pinMode(TPL_PIN_DELAY, INPUT);
+	if(digitalRead(TPL_PIN_DELAY) == HIGH){
+		update();
+	}
 }
 
 void update(){
@@ -44,7 +52,11 @@ void update(){
 	Serial.println("Requesting update");
 #endif
 	if(co2Sensor.getMeasure()){
-		dataStore.addData(&rtcZero, co2Sensor.getTemperature(), (int)co2Sensor.getHumidity(), co2Sensor.getCO2(), 0);
+		dataStore.addData(&rtcZero,
+						  co2Sensor.getTemperature(),
+						  (int)co2Sensor.getHumidity(),
+						  co2Sensor.getCO2(),
+						  motion.getProbaOccupe());
 		einkScreen.setSensorValues(co2Sensor.getTemperature(), (int)co2Sensor.getHumidity(), co2Sensor.getCO2());
 
 		einkScreen.drawMainFrame();

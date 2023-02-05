@@ -12,7 +12,6 @@ class TPL {
 public:
 	static void setup();
 	static void powerOff();
-	static void tpl_interrupt();
 };
 
 #endif //MONITOR_CO2_SENSOR_TPL_H

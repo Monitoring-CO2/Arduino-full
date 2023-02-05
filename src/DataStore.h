@@ -9,12 +9,12 @@ typedef struct {
 	float temperature;
 	int humidite;
 	int co2;
-	int mouvement;
+	double mouvement;
 } CO2_data_t;
 
 class DataStore {
 public:
-	void addData(RTCZero *rtcZero, float temperature, int humidite, int co2, int mouvement);
+	void addData(RTCZero *rtcZero, float temperature, int humidite, int co2, double mouvement);
 	LinkedList<CO2_data_t*> *getDataList();
 private:
 	LinkedList<CO2_data_t*> dataList;
