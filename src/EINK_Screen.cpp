@@ -172,8 +172,8 @@ void EINK_Screen::drawLoraSetup(int phase) {
 	display->setTextSize(1);
 	display->setCursor(8, display->height()*18/20);
 	display->print("Nicolas Stein - Thomas Roussarie - Thanh Liem Ta");
-	display->setCursor(72, display->height()*19/20);
-	display->print("Shuchong Li - Hadrien Gourdet");
+	display->setCursor(124, display->height()*19/20);
+	display->print("Shuchong Li");
 
 	display->setTextSize(3);
 	display->setCursor(display->width()-96, display->height()*18/20);

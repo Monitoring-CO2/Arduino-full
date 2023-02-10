@@ -59,7 +59,16 @@ void update(){
 						  motion.getProbaOccupe());
 		einkScreen.setSensorValues(co2Sensor.getTemperature(), (int)co2Sensor.getHumidity(), co2Sensor.getCO2());
 
+#ifndef SERIAL_DEBUG
+		time_t localTime = myTZ.toLocal(rtcZero.getEpoch());
+		if(hour(localTime) < 20 && hour(localTime) > 6){
+			einkScreen.drawMainFrame();
+		}
+#else
 		einkScreen.drawMainFrame();
+#endif
+
+
 #ifdef SERIAL_DEBUG
 		Serial.println(String(dataStore.getDataList()->size())+" data stored");
 #endif
