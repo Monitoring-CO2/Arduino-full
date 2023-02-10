@@ -2,6 +2,9 @@
 
 This program is a [Platform IO](https://platformio.org/) project tested on an Arduino : [MKR1310](https://docs.arduino.cc/hardware/mkr-wan-1310)
 
+
+![Workflow badge](https://github.com/Monitoring-CO2/Arduino-full/actions/workflows/PlatformIO.yml/badge.svg?branch=main)
+
 ## Libraries used
 
 - [MKRWAN](https://github.com/arduino-libraries/MKRWAN)
